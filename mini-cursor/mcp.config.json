@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "my-mcp-server": {
+            "command": "node",
+            "args": [
+                "e:/ai-agent/tool-test/src/my-mcp-server.mjs"
+            ]
+        }
+    }
+}
