@@ -20,45 +20,18 @@ export class AiService {
         this.chain = prompt.pipe(model).pipe(new StringOutputParser());
     }
 
-    async *streamChain(query: string, ttsSessionId?: string): AsyncGenerator<string> {
-        if (ttsSessionId) {
-            // 触发 start 事件，建立腾讯云 TTS 连接
-            this.eventEmitter.emit(AI_TTS_STREAM_EVENT, {
-                type: 'start',
-                sessionId: ttsSessionId,
-                query,
-            } as AiTtsStreamEvent);
-        }
-
+    async *streamChain(query: string, ttsSessionId?: string): AsyncGenerator<string> {
         const stream = await this.chain.stream({ query });
-        try {
-            for await (const chunk of stream) {
-                if (ttsSessionId) {
-                    this.eventEmitter.emit(AI_TTS_STREAM_EVENT, {
-                        type: 'chunk',
-                        sessionId: ttsSessionId,
-                        chunk,
-                    } as AiTtsStreamEvent);
-                }
-                yield chunk;
-            }
-        } catch (error) {
+        for await (const chunk of stream) {
             if (ttsSessionId) {
-                this.eventEmitter.emit(AI_TTS_STREAM_EVENT, {
-                    type: 'error',
+                const event:AiTtsStreamEvent = {
+                    type: 'chunk',
                     sessionId: ttsSessionId,
-                    error: String(error),
-                } as AiTtsStreamEvent);
+                    chunk,
+                }
+                this.eventEmitter.emit(AI_TTS_STREAM_EVENT, event);
             }
-            throw error;
-        }
-
-        if (ttsSessionId) {
-            // 触发 end 事件，通知 TTS 合成完成
-            this.eventEmitter.emit(AI_TTS_STREAM_EVENT, {
-                type: 'end',
-                sessionId: ttsSessionId,
-            } as AiTtsStreamEvent);
+            yield chunk;
         }
     }
 }
