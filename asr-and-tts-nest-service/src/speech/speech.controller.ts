@@ -13,7 +13,7 @@ export class SpeechController {
     constructor(private readonly speechService: SpeechService) { }
 
     @Post('asr')
-    @UseInterceptors(FileInterceptor('audio'))
+    @UseInterceptors(FileInterceptor('audio'))  // 拦截名为 'audio' 的文件字段
     async recognize(
         @UploadedFile()
         file?: {
