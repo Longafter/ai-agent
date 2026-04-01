@@ -55,7 +55,7 @@ const messages = [
 
 let response = await modelWithTools.invoke(messages);
 messages.push(response);
-console.log(messages);
+// console.log(messages);
 
 while (response.tool_calls && response.tool_calls.length > 0) {
   console.log(`\n[检测到 ${response.tool_calls.length} 个工具调用]`);

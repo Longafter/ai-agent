@@ -20,7 +20,7 @@ import { ChatOpenAI } from '@langchain/openai';
         });
       },
       inject: [ConfigService],
-    }
+    },
   ],
 })
-export class AiModule { }
+export class AiModule {}

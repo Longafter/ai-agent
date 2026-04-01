@@ -19,8 +19,8 @@ const model = new ChatOpenAI({
 const mcpClient = new MultiServerMCPClient({
   mcpServers: {
     'my-mcp-server': {
-      command: 'node',
-      args: ['E:\\ai-agent\\tool-test\\src\\my-mcp-server.mjs'],
+      command: 'python',
+      args: ['E:\\ai-agent\\tool-test\\src\\my-mcp-server.py'],
     },
     'amap-maps-streamableHTTP': {
       url: 'https://mcp.amap.com/mcp?key=' + process.env.AMAP_MAPS_API_KEY,

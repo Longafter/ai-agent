@@ -18,25 +18,28 @@ const model = new ChatOpenAI({
 
 const mcpClient = new MultiServerMCPClient({
   mcpServers: {
+    // 'my-mcp-server': {
+    //   command: 'node',
+    //   args: ['E:\\ai-agent\\tool-test\\src\\my-mcp-server.mjs'],
+    // },
     'my-mcp-server': {
-      command: 'node',
-      args: ['E:\\ai-agent\\tool-test\\src\\my-mcp-server.mjs'],
+      command: 'python',
+      args: ['E:\\ai-agent\\tool-test\\src\\my-mcp-server.py'],
     },
   },
 });
 
 const tools = await mcpClient.getTools();
-console.log(tools);
+// console.log(tools);
 const modelWithTools = model.bindTools(tools);
 
 const res = await mcpClient.listResources();
-console.log(res);
+// console.log(res);
 
 let resourceContent = '';
 for (const [serverName, resources] of Object.entries(res)) {
   for (const resource of resources) {
     const content = await mcpClient.readResource(serverName, resource.uri);
-    console.log(content);
     resourceContent += content[0].text;
   }
 }
@@ -84,7 +87,7 @@ async function runAgentWithTools(query, maxIterations = 30) {
   return messages[messages.length - 1].content;
 }
 
-await runAgentWithTools('查一下用户 002 的信息');
-// await runAgentWithTools('MCP Server 的使用指南是什么');
+// await runAgentWithTools('查一下用户 002 的信息');
+await runAgentWithTools('MCP Server 的使用指南是什么');
 
 await mcpClient.close();
