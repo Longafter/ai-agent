@@ -2,7 +2,10 @@ import { Controller, Get, Query, Sse } from '@nestjs/common';
 import { from, map, Observable } from 'rxjs';
 import { AiService } from './ai.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { AI_TTS_STREAM_EVENT, type AiTtsStreamEvent } from '../common/stream-events';
+import {
+  AI_TTS_STREAM_EVENT,
+  type AiTtsStreamEvent,
+} from '../common/stream-events';
 
 @Controller('ai')
 export class AiController {
