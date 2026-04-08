@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find . -name \"package.json\" -exec echo \"=== {} ===\" ; -exec cat {} ;)",
+      "Bash(npm view @langchain/core version)",
+      "Bash(npm view @langchain/openai version)",
+      "Bash(npm view @langchain/community version)",
+      "Bash(npm view @langchain/core@latest version)",
+      "Bash(npm view @langchain/openai@latest version)",
+      "Bash(npm view @langchain/community@latest version)",
+      "Bash(done)",
+      "Bash(pnpm install)",
+      "Bash(pnpm build)",
+      "Bash(pnpm add socket.io)",
+      "Bash(curl -s http://localhost:3000/health)",
+      "Bash(timeout 20 pnpm start:dev)"
+    ]
+  }
+}
